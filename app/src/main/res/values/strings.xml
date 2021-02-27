@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HotelManagement</string>
+    <string name="log_in"><b>Log In</b></string>
+    <string name="sign_up"><b>Sign Up</b></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
