@@ -5,4 +5,7 @@
     <color name="colorAccent">#4ba3c7</color>
     <color name="greyFont">#989898</color>
     <color name="transparentWhite">#80FFFFFF</color>
+    <color name="blueTransparent">#804BA3C7</color>
+    <color name="bottomNavColor">#b8d7f5</color>
+    <color name="navItemColor">#70B8FD</color>
 </resources>

@@ -7,6 +7,35 @@
     android:background="@color/colorAccent"
     tools:context=".UI.LoginSignUpActivity">
 
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_skip_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:clickable="true"
+        app:cardCornerRadius="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentEnd="true"
+        app:cardElevation="6dp"
+        app:cardUseCompatPadding="true"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skip"
+            android:background="?attr/selectableItemBackground"
+            android:textSize="16sp"
+            android:textColor="@color/colorAccent"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:gravity="center"/>
+    </androidx.cardview.widget.CardView>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,10 +1,12 @@
 package com.roshan.hotelmanegment.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +21,7 @@ public class LoginSignUpActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private CardView skipButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,9 @@ public class LoginSignUpActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
+        skipButton = findViewById(R.id.card_skip_button);
+
+        skipButton.setOnClickListener(v -> openHomePage());
 
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.log_in)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.sign_up)));
@@ -53,6 +59,10 @@ public class LoginSignUpActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void openHomePage() {
+        startActivity(new Intent(this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 
    /* public void wrapTabIndicatorToTitle(TabLayout tabLayout, int externalMargin, int internalMargin) {

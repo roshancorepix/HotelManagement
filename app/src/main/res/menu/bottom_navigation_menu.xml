@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/ic_home"
+        app:cnb_backgroundColor="@color/navItemColor"
+        app:cnb_iconColor="@color/colorPrimary"
+        app:cnb_textColor="@color/colorPrimary"/>
+
+    <item android:id="@+id/holidays"
+        android:title="Holidays"
+        android:icon="@drawable/ic_air_balloon"
+        app:cnb_backgroundColor="@color/navItemColor"
+        app:cnb_iconColor="@color/colorPrimary"
+        app:cnb_textColor="@color/colorPrimary"/>
+
+    <item android:id="@+id/buddy"
+        android:title="Buddy"
+        android:icon="@drawable/ic_buddy"
+        app:cnb_backgroundColor="@color/navItemColor"
+        app:cnb_iconColor="@color/colorPrimary"
+        app:cnb_textColor="@color/colorPrimary"/>
+
+    <item android:id="@+id/profile"
+        android:title="Profile"
+        android:icon="@drawable/ic_profile"
+        app:cnb_backgroundColor="@color/navItemColor"
+        app:cnb_iconColor="@color/colorPrimary"
+        app:cnb_textColor="@color/colorPrimary"/>
+
+</menu>
