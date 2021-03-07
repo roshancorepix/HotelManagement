@@ -3,6 +3,8 @@ package com.roshan.hotelmanegment.UI.UiFragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
@@ -13,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.roshan.hotelmanegment.Adapters.BestHotelAdapter;
 import com.roshan.hotelmanegment.Adapters.ExploreWorldAdapter;
+import com.roshan.hotelmanegment.Model.BestHotelMode;
 import com.roshan.hotelmanegment.Model.ExploreWord;
 import com.roshan.hotelmanegment.R;
 
@@ -30,6 +34,10 @@ public class HomeFragment extends Fragment {
     int delay = 5000;
     Runnable runnable;
     private int[] pagerIndex = {-1};
+    private RecyclerView bestHotelRecyclerview;
+    private BestHotelAdapter bestHotelAdapter;
+    private List<BestHotelMode> bestHotelModeList = new ArrayList<>();
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -83,7 +91,23 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // Best Hotel
+        getBestHotel();
+
         return view;
+    }
+
+    private void getBestHotel() {
+        bestHotelRecyclerview.setHasFixedSize(true);
+        bestHotelRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false));
+
+        bestHotelModeList.add(new BestHotelMode(R.drawable.burj_al_arab_jumeirah, "BURJ AL ARAB JUMEIRAH", "Dubai", "200", 4.5f));
+        bestHotelModeList.add(new BestHotelMode(R.drawable.the_shelbourne_hotel, "The Shelbourne Hotel", "Dubai", "600", 5.0f));
+        bestHotelModeList.add(new BestHotelMode(R.drawable.tajmahel, "Tajmahal", "India", "150", 4.5f));
+        bestHotelModeList.add(new BestHotelMode(R.drawable.theplaza, "The Plaza", "New York", "400", 5.0f));
+
+        bestHotelAdapter = new BestHotelAdapter(getActivity(), bestHotelModeList);
+        bestHotelRecyclerview.setAdapter(bestHotelAdapter);
     }
 
     private void addBottomDots(int position) {
@@ -106,5 +130,8 @@ public class HomeFragment extends Fragment {
     private void bindID(View view) {
         exploreWorldViewPager = view.findViewById(R.id.explore_view_pager);
         dotIndicatorLayout = view.findViewById(R.id.dot_container);
+        bestHotelRecyclerview = view.findViewById(R.id.rv_best_hotel);
     }
+
+
 }

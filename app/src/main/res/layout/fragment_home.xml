@@ -1,207 +1,304 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    tools:context=".UI.UiFragments.HomeFragment">
-
+    android:scrollbars="none">
 
     <RelativeLayout
-        android:id="@+id/search_layout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/search_background"
-        android:elevation="8dp">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="10dp"
-            android:layout_toEndOf="@id/image_search"
-            android:background="@null"
-            android:hint="Where are you going?"
-            android:fontFamily="@font/jost_light"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/image_search"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="15dp"
-            app:srcCompat="@drawable/ic_search" />
-    </RelativeLayout>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_menu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/search_layout"
-        android:layout_marginTop="5dp"
         android:padding="10dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:cardUseCompatPadding="true">
+        tools:context=".UI.UiFragments.HomeFragment">
+
 
         <RelativeLayout
+            android:id="@+id/search_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/search_background"
+            android:elevation="8dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_toEndOf="@id/image_search"
+                android:background="@null"
+                android:fontFamily="@font/jost_light"
+                android:hint="Where are you going?"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/image_search"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="15dp"
+                app:srcCompat="@drawable/ic_search" />
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_below="@+id/search_layout"
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
 
             <RelativeLayout
-                android:id="@+id/rl_hotel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <RelativeLayout
+                    android:id="@+id/rl_hotel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:padding="20dp">
+
+                    <ImageButton
+                        android:id="@+id/img_hotel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/ic_hotel" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_hotel"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="Hotel"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_flight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/rl_hotel"
+                    android:padding="20dp"
+                    android:layout_marginStart="20dp">
+
+                    <ImageButton
+                        android:id="@+id/img_flight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/ic_airplane" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_flight"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="Flight"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_bus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/rl_flight"
+                    android:padding="20dp"
+                    android:layout_marginStart="20dp">
+
+                    <ImageButton
+                        android:id="@+id/img_bus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/ic_bus" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_bus"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="Bus"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_train"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl_hotel"
+                    android:padding="20dp">
+
+                    <ImageButton
+                        android:id="@+id/img_train"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/ic_train" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_train"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="@string/trains"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_packages"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl_flight"
+                    android:layout_toEndOf="@id/rl_train"
+                    android:layout_marginStart="20dp"
+                    android:padding="18dp">
+
+                    <ImageButton
+                        android:id="@+id/img_package"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/ic_holidays" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_package"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/jost_regular"
+                        android:text="@string/holiday_packages"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_offers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/rl_packages"
+                    android:layout_below="@id/rl_flight"
+                    android:layout_marginStart="20dp"
+                    android:padding="20dp">
+
+                    <ImageButton
+                        android:id="@+id/img_offers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/ic_discount" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/img_offers"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/jost_regular"
+                        android:gravity="center"
+                        android:text="Offers"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:id="@+id/rl_explore_world"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/card_menu"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/tv_explore_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:padding="20dp">
+                android:fontFamily="@font/jost_regular"
+                android:paddingStart="10dp"
+                android:text="Explore world"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="25sp"
+                android:textStyle="bold" />
 
-                <ImageButton
-                    android:id="@+id/img_hotel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/ic_hotel" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_hotel"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:text="Hotel"
-                    android:fontFamily="@font/jost_regular"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
-            </RelativeLayout>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/explore_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@id/tv_explore_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp" />
 
-            <RelativeLayout
-                android:id="@+id/rl_flight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/rl_hotel"
-                android:padding="20dp">
+            <LinearLayout
+                android:id="@+id/dot_container"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/explore_view_pager"
+                android:layout_marginTop="-12dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/img_flight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/ic_airplane" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_flight"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/jost_regular"
-                    android:text="Flight"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_packages"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/rl_flight"
-                android:padding="15dp">
-
-                <ImageButton
-                    android:id="@+id/img_package"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/ic_holidays" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_package"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:textAlignment="center"
-                    android:fontFamily="@font/jost_regular"
-                    android:text="@string/holiday_packages"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_offers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/rl_packages"
-                android:padding="20dp">
-
-                <ImageButton
-                    android:id="@+id/img_offers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/ic_discount" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_offers"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="Offers"
-                    android:fontFamily="@font/jost_regular"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
-            </RelativeLayout>
+            </LinearLayout>
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/card_menu"
-        android:layout_marginTop="20dp"
-        >
 
-        <TextView
-            android:id="@+id/tv_explore_title"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_below="@id/rl_explore_world"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Explore world"
-            android:textSize="25sp"
-            android:paddingStart="10dp"
-            android:layout_alignParentStart="true"
-            android:fontFamily="@font/jost_regular"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold" />
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp">
 
+            <TextView
+                android:id="@+id/tv_best_hotel_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/marvelous_hotel"
+                android:layout_alignParentStart="true"
+                android:fontFamily="@font/jost_regular"
+                android:paddingStart="10dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/explore_view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@id/tv_explore_title"
-            android:layout_marginTop="5dp"
-            android:layout_centerHorizontal="true" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_best_hotel"
+                android:layout_below="@+id/tv_best_hotel_title"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-        <LinearLayout
-            android:id="@+id/dot_container"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="-12dp"
-            android:gravity="center"
-            android:layout_below="@+id/explore_view_pager">
-
-        </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
+</ScrollView>
