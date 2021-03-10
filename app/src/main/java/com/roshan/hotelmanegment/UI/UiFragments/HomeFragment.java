@@ -2,6 +2,7 @@ package com.roshan.hotelmanegment.UI.UiFragments;
 
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.roshan.hotelmanegment.Adapters.ExploreWorldAdapter;
 import com.roshan.hotelmanegment.Model.BestHotelMode;
 import com.roshan.hotelmanegment.Model.ExploreWord;
 import com.roshan.hotelmanegment.R;
+import com.roshan.hotelmanegment.UI.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +58,7 @@ public class HomeFragment extends Fragment {
                 handler.postDelayed(runnable, delay);
             }
         },delay);
+
         super.onStart();
     }
 
@@ -91,6 +94,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
         // Best Hotel
         getBestHotel();
 
@@ -114,15 +118,18 @@ public class HomeFragment extends Fragment {
         dots = new TextView[exploreWordList.size()];
         dotIndicatorLayout.removeAllViews();
 
-        for (int i=0; i < dots.length; i++){
-            dots[i] = new TextView(getActivity());
-            dots[i].setText(Html.fromHtml("&#8226\t"));
-            dots[i].setTextSize(18f);
-            dots[i].setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-            dotIndicatorLayout.addView(dots[i]);
-        }
-        if (dots.length > 0) {
-            dots[position].setTextColor(getResources().getColor(R.color.colorAccent));
+        if (getContext() != null) {
+            for (int i = 0; i < dots.length; i++) {
+                dots[i] = new TextView(getContext());
+                dots[i].setText(Html.fromHtml("&#8226\t"));
+                dots[i].setTextSize(18f);
+                dots[i].setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
+                dotIndicatorLayout.addView(dots[i]);
+            }
+
+            if (dots.length > 0) {
+                dots[position].setTextColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
+            }
         }
 
     }
@@ -132,6 +139,5 @@ public class HomeFragment extends Fragment {
         dotIndicatorLayout = view.findViewById(R.id.dot_container);
         bestHotelRecyclerview = view.findViewById(R.id.rv_best_hotel);
     }
-
 
 }

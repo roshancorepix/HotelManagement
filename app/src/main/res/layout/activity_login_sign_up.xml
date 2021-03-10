@@ -33,6 +33,7 @@
             android:paddingBottom="5dp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
+            android:fontFamily="@font/jost_regular"
             android:gravity="center"/>
     </androidx.cardview.widget.CardView>
 

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "110253593851",
+    "project_id": "hotelmanagmentapp-8bf2c",
+    "storage_bucket": "hotelmanagmentapp-8bf2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110253593851:android:ef9929437c3ee926b00c5e",
+        "android_client_info": {
+          "package_name": "com.roshan.hotelmanegment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110253593851-3d9o0tadl77mqkl739o7pf12pof3j280.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.roshan.hotelmanegment",
+            "certificate_hash": "6850d6da31a74d2e059821ab02e7cf0f12d63548"
+          }
+        },
+        {
+          "client_id": "110253593851-untserbravl6cvfbmousumit8egk8t5m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwf1xR7rPw0WmdYXfQdtU7uUFBuWosEF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110253593851-untserbravl6cvfbmousumit8egk8t5m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

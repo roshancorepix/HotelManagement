@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.roshan.hotelmanegment.R;
 import com.roshan.hotelmanegment.UI.UiFragments.HomeFragment;
+import com.roshan.hotelmanegment.UI.UiFragments.UserProfileFragment;
 
 public class MainActivity extends AppCompatActivity implements ChipNavigationBar.OnItemSelectedListener{
 
@@ -35,6 +36,11 @@ public class MainActivity extends AppCompatActivity implements ChipNavigationBar
             case R.id.home:
                 fragment = new HomeFragment();
                 openFragment(fragment, "HomeFragmentTag");
+                break;
+
+            case R.id.profile:
+                fragment = new UserProfileFragment();
+                openFragment(fragment, "UserProfileFragmentTag");
                 break;
 
             default:

@@ -24,7 +24,8 @@
             android:maxLines="1"
             android:elevation="4dp"
             android:background="@drawable/edit_text_bg"
-            android:drawableLeft="@drawable/ic_user"
+            android:drawableStart="@drawable/ic_user"
+            android:fontFamily="@font/jost_regular"
             android:drawableTint="@color/colorAccent"
             android:drawablePadding="15dp"
             android:textColor="@color/colorPrimaryDark"/>
@@ -44,7 +45,8 @@
             android:maxLines="1"
             android:elevation="4dp"
             android:background="@drawable/edit_text_bg"
-            android:drawableLeft="@drawable/ic_email"
+            android:drawableStart="@drawable/ic_email"
+            android:fontFamily="@font/jost_regular"
             android:drawableTint="@color/colorAccent"
             android:drawablePadding="15dp"
             android:textColor="@color/colorPrimaryDark"/>
@@ -69,29 +71,51 @@
             android:textColor="@color/colorPrimaryDark"/>
 
 
-        <EditText
-            android:id="@+id/et_pass"
-            android:layout_below="@id/et_mobile_no"
+        <RelativeLayout
+            android:id="@+id/rl_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:layout_below="@id/et_mobile_no"
             android:layout_marginTop="30dp"
-            android:textColorHint="@color/greyFont"
-            android:textSize="16sp"
-            android:padding="12dp"
-            android:maxLines="1"
-            android:elevation="4dp"
-            android:inputType="textPassword"
-            android:background="@drawable/edit_text_bg"
-            android:drawableLeft="@drawable/ic_password"
-            android:drawableTint="@color/colorAccent"
-            android:drawablePadding="15dp"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:background="@drawable/edit_text_bg">
 
+            <EditText
+                android:id="@+id/et_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="15dp"
+                android:padding="12dp"
+                android:drawableTint="@color/colorAccent"
+                android:elevation="4dp"
+                android:fontFamily="@font/jost_regular"
+                android:hint="Password"
+                android:background="@null"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/greyFont"
+                android:textSize="16sp"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/tv_pass_toggle"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/tv_pass_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="SHOW"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/jost_regular"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"/>
+        </RelativeLayout>
 
         <Button
-            android:id="@+id/btn_login"
-            android:layout_below="@id/et_pass"
+            android:id="@+id/btn_signIn"
+            android:layout_below="@id/rl_password"
             android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -99,16 +123,27 @@
             android:textAllCaps="false"
             android:textSize="18sp"
             android:elevation="8dp"
+            android:fontFamily="@font/jost_regular"
             android:background="@drawable/button_background"
             android:textColor="@color/colorPrimary"/>
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_signIn"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"/>
+
 
 
         <RelativeLayout
             android:id="@+id/other_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_login"
-            android:layout_marginTop="60dp"
+            android:layout_below="@id/btn_signIn"
+            android:layout_marginTop="80dp"
             android:gravity="center">
 
 

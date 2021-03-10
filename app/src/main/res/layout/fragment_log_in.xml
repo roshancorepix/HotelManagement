@@ -1,79 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UI.UiFragments.LogInFragment">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_centerVertical="true">
-
-
-    <EditText
-        android:id="@+id/et_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:textColorHint="@color/greyFont"
-        android:textSize="16sp"
-        android:padding="12dp"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:elevation="4dp"
-        android:background="@drawable/edit_text_bg"
-        android:drawableLeft="@drawable/ic_email"
-        android:drawableTint="@color/colorAccent"
-        android:drawablePadding="15dp"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:layout_centerVertical="true"
+        android:padding="10dp">
 
 
         <EditText
-            android:id="@+id/et_pass"
-            android:layout_below="@id/et_email"
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:layout_marginTop="30dp"
-            android:textColorHint="@color/greyFont"
-            android:textSize="16sp"
-            android:padding="12dp"
-            android:maxLines="1"
-            android:elevation="4dp"
-            android:inputType="textPassword"
             android:background="@drawable/edit_text_bg"
-            android:drawableLeft="@drawable/ic_password"
-            android:drawableTint="@color/colorAccent"
+            android:drawableStart="@drawable/ic_email"
             android:drawablePadding="15dp"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:drawableTint="@color/colorAccent"
+            android:elevation="4dp"
+            android:fontFamily="@font/jost_regular"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:padding="12dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/greyFont"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_email"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/edit_text_bg">
+
+            <EditText
+                android:id="@+id/et_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="15dp"
+                android:padding="12dp"
+                android:drawableTint="@color/colorAccent"
+                android:elevation="4dp"
+                android:fontFamily="@font/jost_regular"
+                android:hint="Password"
+                android:background="@null"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/greyFont"
+                android:textSize="16sp"
+                android:layout_marginEnd="5dp"
+                android:layout_toStartOf="@id/tv_pass_toggle"
+                android:layout_alignParentStart="true"/>
+
+            <TextView
+                android:id="@+id/tv_pass_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="SHOW"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/jost_regular"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"/>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_forgot_pass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/et_pass"
+            android:layout_below="@id/rl_password"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="10dp"
+            android:fontFamily="@font/jost_regular"
             android:text="Forgot Password?"
-            android:textSize="16sp"
-            android:textStyle="bold"
             android:textColor="@color/colorAccent"
-            android:layout_alignParentEnd="true"/>
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btn_login"
-            android:layout_below="@id/tv_forgot_pass"
-            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_forgot_pass"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/button_background"
+            android:elevation="8dp"
+            android:fontFamily="@font/jost_regular"
             android:text="@string/log_in"
             android:textAllCaps="false"
-            android:textSize="18sp"
-            android:elevation="8dp"
-            android:background="@drawable/button_background"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+        <ProgressBar
+            android:id="@+id/login_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_login"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"/>
 
 
         <RelativeLayout
@@ -81,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_login"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="80dp"
             android:gravity="center">
 
 
@@ -89,11 +123,11 @@
                 android:id="@+id/card_facebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/colorPrimary"
                 android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="40dp"
-                app:cardUseCompatPadding="true"
-                app:cardElevation="4dp">
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
 
                 <ImageButton
                     android:layout_width="wrap_content"
@@ -104,14 +138,14 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_google"
-                android:layout_toEndOf="@id/card_facebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_toEndOf="@id/card_facebook"
                 android:foreground="?android:attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="40dp"
-                app:cardUseCompatPadding="true"
-                app:cardElevation="4dp">
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
 
                 <ImageButton
                     android:layout_width="wrap_content"
@@ -122,13 +156,13 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_email"
-                android:layout_toEndOf="@id/card_google"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/card_google"
                 app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="40dp"
-                app:cardUseCompatPadding="true"
-                app:cardElevation="4dp">
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true">
 
                 <ImageButton
                     android:layout_width="wrap_content"
