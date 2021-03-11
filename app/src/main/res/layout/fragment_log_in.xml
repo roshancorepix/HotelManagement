@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.UiFragments.LogInFragment">
@@ -120,7 +121,7 @@
 
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/card_facebook"
+                android:id="@+id/card_facebook_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:foreground="?android:attr/selectableItemBackground"
@@ -130,6 +131,7 @@
                 app:cardUseCompatPadding="true">
 
                 <ImageButton
+                    android:id="@+id/ib_facebook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/ic_facebook_bluel" />
@@ -140,7 +142,7 @@
                 android:id="@+id/card_google"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/card_facebook"
+                android:layout_toEndOf="@id/card_facebook_login"
                 android:foreground="?android:attr/selectableItemBackground"
                 app:cardBackgroundColor="@color/colorPrimary"
                 app:cardCornerRadius="40dp"

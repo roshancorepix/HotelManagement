@@ -7,4 +7,8 @@
     <string name="holiday_packages">Holiday\nPackages</string>
     <string name="trains">Trains</string>
     <string name="marvelous_hotel">Marvelous Hotel</string>
+
+    <string name="facebook_app_id">2013671115440375</string>
+    <string name="fb_login_protocol_scheme">fb2013671115440375</string>
+
 </resources>

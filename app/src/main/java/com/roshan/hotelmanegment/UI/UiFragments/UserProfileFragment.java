@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.roshan.hotelmanegment.R;
+import com.roshan.hotelmanegment.SharedPreference.Preference;
 import com.roshan.hotelmanegment.UI.LoginSignUpActivity;
 
 
@@ -27,7 +28,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
-        // Inflate the layout for this fragment
+        Preference.init(getActivity());
         logoutButton = view.findViewById(R.id.btn_logout);
         logoutButton.setOnClickListener(this);
 
@@ -38,6 +39,7 @@ public class UserProfileFragment extends Fragment implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_logout:
+                Preference.setIsLogin(false);
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getActivity(), LoginSignUpActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 getActivity().finish();

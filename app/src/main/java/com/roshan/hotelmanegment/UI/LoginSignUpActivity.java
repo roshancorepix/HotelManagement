@@ -1,8 +1,10 @@
 package com.roshan.hotelmanegment.UI;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -15,6 +17,7 @@ import android.widget.TableLayout;
 
 import com.google.android.material.tabs.TabLayout;
 import com.roshan.hotelmanegment.R;
+import com.roshan.hotelmanegment.SharedPreference.Preference;
 import com.roshan.hotelmanegment.Utils.StatusBarUtils;
 
 public class LoginSignUpActivity extends AppCompatActivity {
@@ -22,6 +25,7 @@ public class LoginSignUpActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private CardView skipButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +36,18 @@ public class LoginSignUpActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.view_pager);
         skipButton = findViewById(R.id.card_skip_button);
 
+        Preference.init(this);
+
+        if (Preference.getUserLogin()){
+            openHomePage();
+        }
+
         skipButton.setOnClickListener(v -> openHomePage());
 
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.log_in)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.sign_up)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        final PagerAdapter adapter = new com.roshan.hotelmanegment.Adapters.PagerAdapter(this,getSupportFragmentManager(),
+        final PagerAdapter adapter = new com.roshan.hotelmanegment.Adapters.PagerAdapter(this, getSupportFragmentManager(),
                 tabLayout.getTabCount());
 
         viewPager.setAdapter(adapter);
@@ -65,4 +75,11 @@ public class LoginSignUpActivity extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }
