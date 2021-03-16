@@ -22,9 +22,7 @@ import com.roshan.hotelmanegment.Utils.StatusBarUtils;
 
 public class LoginSignUpActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout;
     private ViewPager viewPager;
-    private CardView skipButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +30,9 @@ public class LoginSignUpActivity extends AppCompatActivity {
         StatusBarUtils.changeStatusBarColor(this, getWindow(), R.color.colorAccent);
         setContentView(R.layout.activity_login_sign_up);
 
-        tabLayout = findViewById(R.id.tab_layout);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
         viewPager = findViewById(R.id.view_pager);
-        skipButton = findViewById(R.id.card_skip_button);
+        CardView skipButton = findViewById(R.id.card_skip_button);
 
         Preference.init(this);
 

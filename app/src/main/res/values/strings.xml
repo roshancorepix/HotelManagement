@@ -11,4 +11,7 @@
     <string name="facebook_app_id">2013671115440375</string>
     <string name="fb_login_protocol_scheme">fb2013671115440375</string>
 
+    <string name="hide">HIDE</string>
+    <string name="show">SHOW</string>
+
 </resources>

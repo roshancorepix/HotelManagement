@@ -22,10 +22,14 @@ import com.google.android.gms.common.internal.service.Common;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.roshan.hotelmanegment.Common.CommonFunction;
+import com.roshan.hotelmanegment.Model.User;
 import com.roshan.hotelmanegment.R;
 import com.roshan.hotelmanegment.UI.MainActivity;
 import com.roshan.hotelmanegment.Utils.Util;
@@ -39,6 +43,8 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
     private boolean isPasswordHide = true;
     private FirebaseAuth mAuth;
     private ProgressBar sigInProgressbar;
+    private FirebaseUser currentUser;
+    DatabaseReference reference;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -51,7 +57,9 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
         bindID(view);
 
         // Initialise variables
+        FirebaseApp.initializeApp(getActivity());
         mAuth = FirebaseAuth.getInstance();
+        reference= FirebaseDatabase.getInstance().getReference("app_user");
 
         // click
         passwordToggle.setOnClickListener(this);
@@ -62,7 +70,7 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
         Log.e(TAG, "currentUser: " + currentUser);
         if (currentUser != null) {
             startActivity(new Intent(getActivity(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -142,19 +150,22 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
         } else {
             sigInProgressbar.setVisibility(View.VISIBLE);
             signInButton.setEnabled(false);
-            signUpUser(email, password);
+            signUpUser(username, email, mobile,password);
         }
     }
 
-    private void signUpUser(String email, String password) {
+    private void signUpUser(String username,String email, String mobile,String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             sigInProgressbar.setVisibility(View.GONE);
-                            signInButton.setEnabled(false);
+                            signInButton.setEnabled(true);
                             CommonFunction.showToastMessage(getActivity(), "User signIn Success");
+                            String uID = mAuth.getCurrentUser().getUid();
+                            storeUserDetail(uID, username, email, mobile);
+                            startActivity(new Intent(getActivity(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         }
                     }
                 })
@@ -164,5 +175,20 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
                         Log.e(TAG,"Error: "+e.getLocalizedMessage());
                     }
                 });
+    }
+
+    private void storeUserDetail(String uID, String username, String email, String mobile) {
+        User user = new User(uID,username, email, mobile);
+        reference.child(uID).setValue(user).addOnCompleteListener(task -> {
+            if (task.isSuccessful()){
+                Log.e(TAG,"User Added successfully");
+            }else {
+                Log.e(TAG,"Some error"+task.getException().getMessage());
+            }
+
+        })
+        .addOnFailureListener(e -> {
+            Log.e(TAG,"Error: "+e.getMessage());
+        });
     }
 }
