@@ -1,5 +1,6 @@
 package com.roshan.hotelmanegment.UI.UiFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.roshan.hotelmanegment.Adapters.BestHotelAdapter;
@@ -21,14 +23,16 @@ import com.roshan.hotelmanegment.Adapters.ExploreWorldAdapter;
 import com.roshan.hotelmanegment.Model.BestHotelMode;
 import com.roshan.hotelmanegment.Model.ExploreWord;
 import com.roshan.hotelmanegment.R;
+import com.roshan.hotelmanegment.UI.HotelBookingActivity;
 import com.roshan.hotelmanegment.UI.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
     private ViewPager exploreWorldViewPager;
     private LinearLayout dotIndicatorLayout;
+    private RelativeLayout hotelBooking;
     private List<ExploreWord> exploreWordList = new ArrayList<>();
     private ExploreWorldAdapter exploreWorldAdapter;
     private TextView[] dots;
@@ -98,6 +102,9 @@ public class HomeFragment extends Fragment {
         // Best Hotel
         getBestHotel();
 
+        // Button click
+        hotelBooking.setOnClickListener(this);
+
         return view;
     }
 
@@ -138,6 +145,18 @@ public class HomeFragment extends Fragment {
         exploreWorldViewPager = view.findViewById(R.id.explore_view_pager);
         dotIndicatorLayout = view.findViewById(R.id.dot_container);
         bestHotelRecyclerview = view.findViewById(R.id.rv_best_hotel);
+        hotelBooking = view.findViewById(R.id.rl_hotel);
     }
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.rl_hotel:
+                startActivity(new Intent(getActivity(), HotelBookingActivity.class));
+                break;
+
+            default:
+                break;
+        }
+    }
 }
