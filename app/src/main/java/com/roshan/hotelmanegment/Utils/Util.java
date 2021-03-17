@@ -6,4 +6,6 @@ public class Util {
     public static final int MOBILE_NUM_LENGTH = 10;
 
     public static final int RC_SIGN_IN = 2;
+
+    public static final int DATE_REQUEST = 100;
 }

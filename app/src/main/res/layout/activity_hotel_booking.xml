@@ -4,15 +4,110 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorPrimary"
     tools:context=".UI.HotelBookingActivity">
 
     <FrameLayout
-        android:id="@+id/fram_container"
+        android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/title_image"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:layout_marginTop="-5dp"
+                android:src="@drawable/booking_image" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_image"
+                android:layout_centerHorizontal="true"
+                android:elevation="8dp"
+                android:background="@drawable/rounded_corner_white"
+                android:layout_marginTop="-40dp"
+                android:layout_marginBottom="10dp"
+                android:padding="5dp">
+
+                <RelativeLayout
+                    android:id="@+id/search_layout"
+                    android:layout_width="330dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/search_background"
+                    android:elevation="8dp">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toEndOf="@id/image_search"
+                        android:background="@null"
+                        android:fontFamily="@font/jost_light"
+                        android:hint="Where are you going?"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/image_search"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="15dp"
+                        app:srcCompat="@drawable/ic_location" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/view_calender"
+                    android:layout_below="@id/search_layout"
+                    android:layout_width="330dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp">
+
+                    <ImageButton
+                        android:id="@+id/ib_calender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/ic_calendar"/>
+
+                    <TextView
+                        android:id="@+id/booking_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/ib_calender"
+                        android:layout_marginStart="15dp"
+                        android:text="16 Mar 2021 - 17 Mar 2021"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="16sp"
+                        android:fontFamily="@font/jost_regular"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_below="@+id/view_calender"
+                    android:layout_width="330dp"
+                    android:layout_height="0.5dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/greyLine" />
+            </RelativeLayout>
+        </RelativeLayout>
     </FrameLayout>
-
 </RelativeLayout>

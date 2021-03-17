@@ -8,40 +8,36 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-
 import android.os.Handler;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.roshan.hotelmanegment.Adapters.BestHotelAdapter;
 import com.roshan.hotelmanegment.Adapters.ExploreWorldAdapter;
 import com.roshan.hotelmanegment.Model.BestHotelMode;
 import com.roshan.hotelmanegment.Model.ExploreWord;
 import com.roshan.hotelmanegment.R;
 import com.roshan.hotelmanegment.UI.HotelBookingActivity;
-import com.roshan.hotelmanegment.UI.MainActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
+    private final String TAG = getClass().getSimpleName();
     private ViewPager exploreWorldViewPager;
     private LinearLayout dotIndicatorLayout;
-    private RelativeLayout hotelBooking;
+    private ImageButton hotelBooking;
     private List<ExploreWord> exploreWordList = new ArrayList<>();
     private ExploreWorldAdapter exploreWorldAdapter;
-    private TextView[] dots;
     private Handler handler = new Handler();
     int delay = 5000;
     Runnable runnable;
     private int[] pagerIndex = {-1};
     private RecyclerView bestHotelRecyclerview;
-    private BestHotelAdapter bestHotelAdapter;
     private List<BestHotelMode> bestHotelModeList = new ArrayList<>();
 
     public HomeFragment() {
@@ -117,14 +113,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         bestHotelModeList.add(new BestHotelMode(R.drawable.tajmahel, "Tajmahal", "India", "150", 4.5f));
         bestHotelModeList.add(new BestHotelMode(R.drawable.theplaza, "The Plaza", "New York", "400", 5.0f));
 
-        bestHotelAdapter = new BestHotelAdapter(getActivity(), bestHotelModeList);
+        BestHotelAdapter bestHotelAdapter = new BestHotelAdapter(getActivity(), bestHotelModeList);
         bestHotelRecyclerview.setAdapter(bestHotelAdapter);
     }
 
     private void addBottomDots(int position) {
-        dots = new TextView[exploreWordList.size()];
+        TextView[] dots = new TextView[exploreWordList.size()];
         dotIndicatorLayout.removeAllViews();
-
         if (getContext() != null) {
             for (int i = 0; i < dots.length; i++) {
                 dots[i] = new TextView(getContext());
@@ -145,18 +140,54 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         exploreWorldViewPager = view.findViewById(R.id.explore_view_pager);
         dotIndicatorLayout = view.findViewById(R.id.dot_container);
         bestHotelRecyclerview = view.findViewById(R.id.rv_best_hotel);
-        hotelBooking = view.findViewById(R.id.rl_hotel);
+        hotelBooking = view.findViewById(R.id.img_hotel);
     }
 
     @Override
     public void onClick(View view) {
         switch(view.getId()){
-            case R.id.rl_hotel:
+            case R.id.img_hotel:
                 startActivity(new Intent(getActivity(), HotelBookingActivity.class));
                 break;
 
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(TAG,"onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.e(TAG,"onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.e(TAG,"onStop");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG,"onDestroy");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.e(TAG,"onResume");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.e(TAG,"onDestroyView");
     }
 }

@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements ChipNavigationBar
         getSupportFragmentManager().beginTransaction()
                 //.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
                 .replace(R.id.fragment_container, fragment, tag)
-                .addToBackStack(null)
                 .commit();
     }
 
