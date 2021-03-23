@@ -15,23 +15,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.roshan.hotelmanegment.R;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 
-public class CalendarView extends LinearLayout{
+public class CalendarView extends LinearLayout {
     // how many days to show, defaults to six weeks, 42 days
     private static final int DAYS_COUNT = 42;
     // default date format
-    private static final String DATE_FORMAT = "DD MMM yyyy";
+    private static final String DATE_FORMAT = "dd MMM yyyy";
     // date format
     private String dateFormat;
 
     // current displayed month
     private Calendar currentDate = Calendar.getInstance();
+    private Date today;
 
     //event handling
     private EventHandler eventHandler = null;
@@ -42,7 +42,7 @@ public class CalendarView extends LinearLayout{
     private GridView grid;
 
     // seasons' rainbow
-    int[] rainbow = new int[] {
+    int[] rainbow = new int[]{
             R.color.summer,
             R.color.fall,
             R.color.winter,
@@ -50,10 +50,10 @@ public class CalendarView extends LinearLayout{
     };
 
     // month-season association (northern hemisphere, sorry australia :)
-    int[] monthSeason = new int[] {2, 2, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2};
+    int[] monthSeason = new int[]{2, 2, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2};
 
 
-    public CalendarView(Context context){
+    public CalendarView(Context context) {
         super(context);
 
     }
@@ -81,27 +81,23 @@ public class CalendarView extends LinearLayout{
     }
 
     private void assignClickHandlers() {
-        btnNext.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentDate.add(Calendar.MONTH, 1);
-                updateCalendar();
-            }
+        btnNext.setOnClickListener(view -> {
+            currentDate.add(Calendar.MONTH, 1);
+            updateCalendar();
         });
 
-        btnPrev.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentDate.add(Calendar.MONTH, -1);
-                updateCalendar();
-            }
+        btnPrev.setOnClickListener(view -> {
+            currentDate.add(Calendar.MONTH, -1);
+            updateCalendar();
         });
 
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                eventHandler.onDayPress((Date)adapterView.getItemAtPosition(position));
+                if (!(position < today.getDate())) {
+                    eventHandler.onDayPress((Date) adapterView.getItemAtPosition(position));
+                }
             }
         });
     }
@@ -109,37 +105,32 @@ public class CalendarView extends LinearLayout{
     private void loadDateFormat(AttributeSet attrs) {
         TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.CalendarView);
 
-        try
-        {
+        try {
             // try to load provided date format, and fallback to default otherwise
             dateFormat = ta.getString(R.styleable.CalendarView_dateFormat);
             if (dateFormat == null)
                 dateFormat = DATE_FORMAT;
-        }
-        finally
-        {
+        } finally {
             ta.recycle();
         }
     }
 
 
-
     private void assignUiElements() {
-        header = (LinearLayout)findViewById(R.id.calendar_header);
-        btnPrev = (ImageView)findViewById(R.id.calendar_prev_button);
-        btnNext = (ImageView)findViewById(R.id.calendar_next_button);
-        txtDate = (TextView)findViewById(R.id.calendar_date_display);
-        grid = (GridView)findViewById(R.id.calendar_grid);
+        header = (LinearLayout) findViewById(R.id.calendar_header);
+        btnPrev = (ImageView) findViewById(R.id.calendar_prev_button);
+        btnNext = (ImageView) findViewById(R.id.calendar_next_button);
+        txtDate = (TextView) findViewById(R.id.calendar_date_display);
+        grid = (GridView) findViewById(R.id.calendar_grid);
     }
 
     public void updateCalendar() {
         updateCalendar(null);
     }
 
-    public void updateCalendar(HashSet<Date> events)
-    {
+    public void updateCalendar(HashSet<Date> events) {
         ArrayList<Date> cells = new ArrayList<>();
-        Calendar calendar = (Calendar)currentDate.clone();
+        Calendar calendar = (Calendar) currentDate.clone();
 
         // determine the cell for current month's beginning
         calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -149,8 +140,7 @@ public class CalendarView extends LinearLayout{
         calendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell);
 
         // fill cells
-        while (cells.size() < DAYS_COUNT)
-        {
+        while (cells.size() < DAYS_COUNT) {
             cells.add(calendar.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
@@ -170,24 +160,21 @@ public class CalendarView extends LinearLayout{
         header.setBackgroundColor(getResources().getColor(color));
     }
 
-    private class CalendarAdapter extends ArrayAdapter<Date>
-    {
+    private class CalendarAdapter extends ArrayAdapter<Date> {
         // days with events
         private HashSet<Date> eventDays;
 
         // for view inflation
         private LayoutInflater inflater;
 
-        public CalendarAdapter(Context context, ArrayList<Date> days, HashSet<Date> eventDays)
-        {
+        public CalendarAdapter(Context context, ArrayList<Date> days, HashSet<Date> eventDays) {
             super(context, R.layout.control_calendar_day, days);
             this.eventDays = eventDays;
             inflater = LayoutInflater.from(context);
         }
 
         @Override
-        public View getView(int position, View view, ViewGroup parent)
-        {
+        public View getView(int position, View view, ViewGroup parent) {
             // day in question
             Date date = getItem(position);
             int day = date.getDate();
@@ -195,7 +182,7 @@ public class CalendarView extends LinearLayout{
             int year = date.getYear();
 
             // today
-            Date today = new Date();
+            today = new Date();
 
             // inflate item if it does not exist yet
             if (view == null)
@@ -219,23 +206,26 @@ public class CalendarView extends LinearLayout{
             }*/
 
             // clear styling
-            ((TextView)view).setTypeface(null, Typeface.NORMAL);
-            ((TextView)view).setTextColor(Color.BLACK);
+            //((TextView)view).setTypeface(null, Typeface.NORMAL);
+            ((TextView) view).setTextColor(Color.BLACK);
 
-            if (month != today.getMonth() || year != today.getYear())
-            {
+            if (month != today.getMonth() || year != today.getYear()) {
                 // if this day is outside current month, grey it out
-                ((TextView)view).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-            }
-            else if (day == today.getDate())
-            {
+                ((TextView) view).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+            } else if (day == today.getDate()) {
                 // if it is today, set it to blue/bold
-                ((TextView)view).setTypeface(null, Typeface.BOLD);
-                ((TextView)view).setTextColor(getResources().getColor(R.color.today));
+                ((TextView) view).setTypeface(null, Typeface.BOLD);
+                ((TextView) view).setTextColor(getResources().getColor(R.color.today));
+            } else if (day < today.getDate() || month < today.getMonth()) {
+                ((TextView) view).setTextColor(getResources().getColor(R.color.greyed_out));
+                ((TextView) view).setEnabled(false);
+                ((TextView) view).setClickable(false);
+                ((TextView) view).setFocusable(false);
+
             }
 
             // set text
-            ((TextView)view).setText(String.valueOf(date.getDate()));
+            ((TextView) view).setText(String.valueOf(date.getDate()));
 
             return view;
         }

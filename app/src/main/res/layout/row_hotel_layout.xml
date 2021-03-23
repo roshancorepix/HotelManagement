@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/f_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_h_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/renaissance" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/rounded_corner_white"
+                    app:cardCornerRadius="15dp"
+                    app:cardUseCompatPadding="true">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="8dp"
+                        android:paddingBottom="2dp">
+
+                        <ImageView
+                            android:id="@+id/iv_star"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_star" />
+
+                        <TextView
+                            android:id="@+id/hotel_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@id/iv_star"
+                            android:fontFamily="@font/jost_regular"
+                            android:text="4.8"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_toEndOf="@id/hotel_rating"
+                            android:fontFamily="@font/jost_regular"
+                            android:text="/ 5.0"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/f_image"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tv_hotel_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hotel Name"
+                    android:layout_toStartOf="@id/rl_price_container"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/jost_regular"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:id="@+id/tv_hotel_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hotel location"
+                    android:textSize="14sp"
+                    android:layout_toStartOf="@id/rl_price_container"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_alignParentStart="true"
+                    android:textColor="@color/greyFont"
+                    android:fontFamily="@font/jost_light"
+                    android:layout_below="@id/tv_hotel_name"/>
+
+                <RelativeLayout
+                    android:id="@+id/rl_price_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        android:id="@+id/tv_from"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="From"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:fontFamily="@font/jost_regular"/>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="3dp"
+                        android:background="@drawable/rad_corner_background"
+                        android:layout_below="@id/tv_from">
+
+                        <TextView
+                            android:id="@+id/tv_symbol_sign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/rupee_symbol"
+                            android:textSize="14sp"
+                            android:layout_alignParentStart="true"
+                            android:fontFamily="@font/jost_regular"
+                            android:textColor="@color/colorPrimary" />
+
+                        <TextView
+                            android:id="@+id/tv_hotel_price"
+                            android:layout_toEndOf="@id/tv_symbol_sign"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5532"
+                            android:textSize="14sp"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/jost_regular"
+                            android:textColor="@color/colorPrimary" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

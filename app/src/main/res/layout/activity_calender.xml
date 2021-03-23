@@ -16,7 +16,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/ic_close"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check-in/out dates"
+            android:layout_centerVertical="true"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_toEndOf="@+id/ic_close"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/jost_regular"/>
     </RelativeLayout>
 
     <com.roshan.hotelmanegment.CustomClass.CalendarView

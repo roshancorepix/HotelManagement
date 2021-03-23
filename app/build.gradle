@@ -55,4 +55,7 @@ dependencies {
 
     // facebook sdk
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.6'
 }

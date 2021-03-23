@@ -9,6 +9,7 @@
     <color name="bottomNavColor">#b8d7f5</color>
     <color name="navItemColor">#70B8FD</color>
     <color name="greyLine">#75B8B5B5</color>
+    <color name="lightGrey">#A9E4E2E2</color>
 
     <color name="summer">#44eebd82</color>
     <color name="fall">#44d8d27e</color>

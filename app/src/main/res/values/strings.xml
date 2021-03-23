@@ -13,5 +13,7 @@
 
     <string name="hide">HIDE</string>
     <string name="show">SHOW</string>
+    <string name="dot">&#8226;</string>
+    <string name="rupee_symbol">₹</string>
 
 </resources>

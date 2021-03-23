@@ -8,4 +8,9 @@ public class Util {
     public static final int RC_SIGN_IN = 2;
 
     public static final int DATE_REQUEST = 100;
+    public static final int GUEST_AND_ROOM_REQUEST = 101;
+
+    public static final String CHILD = "child";
+    public static final String ADULT = "adult";
+    public static final String ROOM = "room";
 }

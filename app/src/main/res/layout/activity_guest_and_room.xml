@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".UI.GuestAndRoomActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageButton
+            android:id="@+id/ic_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_close" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/ic_close"
+            android:fontFamily="@font/jost_regular"
+            android:text="Guests and rooms"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+    <View
+        android:id="@+id/v_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_below="@+id/rl_toolbar"
+        android:layout_centerHorizontal="true"
+        android:background="@color/greyLine" />
+
+    <RelativeLayout
+        android:id="@+id/rl_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/v_toolbar"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tv_title_room"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Room(s)"
+            android:textSize="18sp"
+            android:fontFamily="@font/jost_regular"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <ImageButton
+            android:id="@+id/btn_room_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_add"/>
+
+        <TextView
+            android:id="@+id/tv_total_room"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/btn_room_add"
+            android:layout_centerVertical="true"
+            android:text="1"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/jost_regular"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <ImageButton
+            android:id="@+id/btn_room_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/tv_total_room"
+            android:background="@drawable/ic_remove"
+            android:clickable="false"
+            android:focusable="false" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v_room"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/rl_room"
+        android:layout_centerHorizontal="true"
+        android:background="@color/lightGrey" />
+
+    <RelativeLayout
+        android:id="@+id/rl_adult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/v_room"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tv_title_adult"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adult(s)"
+            android:textSize="18sp"
+            android:fontFamily="@font/jost_regular"
+            android:textColor="@color/colorPrimaryDark"
+            />
+
+        <ImageButton
+            android:id="@+id/btn_adult_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_add"/>
+
+        <TextView
+            android:id="@+id/tv_total_adult"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/btn_adult_add"
+            android:layout_centerVertical="true"
+            android:text="1"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/jost_regular"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <ImageButton
+            android:id="@+id/btn_adult_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/tv_total_adult"
+            android:background="@drawable/ic_remove"
+            android:clickable="false"
+            android:focusable="false" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v_adult"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/rl_adult"
+        android:layout_centerHorizontal="true"
+        android:background="@color/greyLine" />
+
+    <RelativeLayout
+        android:id="@+id/rl_child"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/v_adult"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tv_title_child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Children"
+            android:textSize="18sp"
+            android:fontFamily="@font/jost_regular"
+            android:textColor="@color/colorPrimaryDark" />
+
+        <ImageButton
+            android:id="@+id/btn_child_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_add"/>
+
+        <TextView
+            android:id="@+id/tv_total_child"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/btn_child_add"
+            android:layout_centerVertical="true"
+            android:text="0"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:fontFamily="@font/jost_regular"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <ImageButton
+            android:id="@+id/btn_child_remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/tv_total_child"
+            android:background="@drawable/ic_remove"
+            android:clickable="false"
+            android:focusable="false" />
+    </RelativeLayout>
+    <View
+        android:id="@+id/v_child"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/rl_child"
+        android:layout_centerHorizontal="true"
+        android:background="@color/greyLine" />
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:background="@drawable/button_background"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/jost_regular"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"/>
+</RelativeLayout>
