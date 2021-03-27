@@ -2,17 +2,21 @@ package com.roshan.hotelmanegment.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.roshan.hotelmanegment.R;
 import com.roshan.hotelmanegment.UI.UiFragments.HomeFragment;
+import com.roshan.hotelmanegment.UI.UiFragments.UserChatFragment;
 import com.roshan.hotelmanegment.UI.UiFragments.UserProfileFragment;
 
-public class MainActivity extends AppCompatActivity implements ChipNavigationBar.OnItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements ChipNavigationBar.OnItemSelectedListener {
 
     private ChipNavigationBar navigationBar;
+    private int backCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements ChipNavigationBar
         binID();
         navigationBar.setOnItemSelectedListener(this);
         navigationBar.setItemSelected(R.id.home, true);
-        openFragment(new HomeFragment(), "HomeFragmentTag");
+        openHomeFragment();
     }
 
     private void binID() {
@@ -31,16 +35,17 @@ public class MainActivity extends AppCompatActivity implements ChipNavigationBar
 
     @Override
     public void onItemSelected(int i) {
-        Fragment fragment = null;
-        switch (i){
+        switch (i) {
             case R.id.home:
-                fragment = new HomeFragment();
-                openFragment(fragment, "HomeFragmentTag");
+                openHomeFragment();
                 break;
 
             case R.id.profile:
-                fragment = new UserProfileFragment();
-                openFragment(fragment, "UserProfileFragmentTag");
+                openProfileFragment();
+                break;
+
+            case R.id.buddy:
+                openChatFragment();
                 break;
 
             default:
@@ -48,16 +53,40 @@ public class MainActivity extends AppCompatActivity implements ChipNavigationBar
         }
     }
 
-    private void openFragment(Fragment fragment, String tag) {
-        getSupportFragmentManager().beginTransaction()
-                //.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right)
-                .replace(R.id.fragment_container, fragment, tag)
+    private void openHomeFragment() {
+        HomeFragment homeFragment = new HomeFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction
+                .replace(R.id.fragment_container, homeFragment, "HomeFragmentTag")
+                .commit();
+    }
+
+    private void openProfileFragment() {
+        UserProfileFragment userProfileFragment = new UserProfileFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction
+                .replace(R.id.fragment_container, userProfileFragment, "UserProfileFragmentTag")
+                .commit();
+    }
+
+    private void openChatFragment() {
+        UserChatFragment userChatFragment = new UserChatFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction
+                .replace(R.id.fragment_container, userChatFragment, "UserChatFFragmentTag")
                 .commit();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
+    public void onBackPressed() {
+        backCount++;
+        if (backCount > 1) {
+            backCount = 0;
+            finishAffinity();
+            super.onBackPressed();
+        } else {
+            navigationBar.setItemSelected(R.id.home, true);
+            openHomeFragment();
+        }
     }
 }

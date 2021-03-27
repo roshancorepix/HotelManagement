@@ -3,6 +3,8 @@ package com.roshan.hotelmanegment.UI;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,20 +18,26 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.roshan.hotelmanegment.Adapters.PopularStayAdapter;
+import com.roshan.hotelmanegment.Adapters.SearchHotelAdapter;
 import com.roshan.hotelmanegment.Common.CommonFunction;
+import com.roshan.hotelmanegment.Model.Hotel;
+import com.roshan.hotelmanegment.Model.PopularHotel;
 import com.roshan.hotelmanegment.R;
 import com.roshan.hotelmanegment.Utils.Util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class HotelBookingActivity extends AppCompatActivity implements View.OnClickListener {
@@ -40,6 +48,10 @@ public class HotelBookingActivity extends AppCompatActivity implements View.OnCl
     private AutoCompleteTextView locationSearch;
     private String[] city = {"Ahmedabad", "Surat", "Rajkot"};
     private Button searchHotelButton;
+    private RecyclerView recyclerViewPopularStay;
+    private List<PopularHotel> popularHotelList = new ArrayList<>();
+    private PopularStayAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +74,10 @@ public class HotelBookingActivity extends AppCompatActivity implements View.OnCl
         locationSearch.setThreshold(1);
         locationSearch.setAdapter(adapter);
 
+        getPopularStayData();
+
     }
+
 
     private void bindID() {
         calenderButton = findViewById(R.id.view_calender);
@@ -75,6 +90,7 @@ public class HotelBookingActivity extends AppCompatActivity implements View.OnCl
         textChild = findViewById(R.id.tv_child);
         locationSearch = findViewById(R.id.autoComplete_location);
         searchHotelButton = findViewById(R.id.btn_search_hotel);
+        recyclerViewPopularStay = findViewById(R.id.rv_popular_stay);
     }
 
     @Override
@@ -176,5 +192,35 @@ public class HotelBookingActivity extends AppCompatActivity implements View.OnCl
         return mDate;
     }
 
+    private void getPopularStayData() {
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("PoularHotels");
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                 if (snapshot != null){
+                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                         PopularHotel popularHotel = dataSnapshot.getValue(PopularHotel.class);
+                         popularHotelList.add(popularHotel);
+                     }
+                     setDataInRecyclerview();
+                 }else {
+                     CommonFunction.showToastMessage(HotelBookingActivity.this, "Please try again later");
+                 }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, error.getMessage());
+            }
+        };
+
+        myRef.addValueEventListener(listener);
+    }
+
+    private void setDataInRecyclerview() {
+        recyclerViewPopularStay.setHasFixedSize(true);
+        recyclerViewPopularStay.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
+        adapter = new PopularStayAdapter(this, popularHotelList);
+        recyclerViewPopularStay.setAdapter(adapter);
+    }
 }

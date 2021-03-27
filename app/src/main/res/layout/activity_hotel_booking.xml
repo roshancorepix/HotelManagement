@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/colorPrimary"
     tools:context=".UI.HotelBookingActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="10dp">
 
         <FrameLayout
@@ -290,8 +290,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/frame_container"
-            android:layout_marginTop="30dp"
-            android:padding="10dp">
+            android:layout_marginTop="30dp">
 
             <TextView
                 android:id="@+id/tv_popular_title"
@@ -301,6 +300,7 @@
                 android:layout_alignParentTop="true"
                 android:fontFamily="@font/jost_regular"
                 android:text="Popular Stay"
+                android:layout_marginStart="15dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -310,9 +310,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_popular_title"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal"
-                tools:listitem="@layout/row_popular_stays"/>
+                android:layout_marginTop="5dp" />
         </RelativeLayout>
     </RelativeLayout>
 </ScrollView>

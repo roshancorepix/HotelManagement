@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:id="@+id/meg_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blue_border_bg"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:maxWidth="300dp"
+        android:elevation="4dp"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tv_show_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/jost_regular"
+            android:padding="5dp"
+            android:text="This is message demo"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_msg_status"
+            android:layout_toEndOf="@id/tv_show_message"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_delivered"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/msg_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12:20 pm"
+        android:textSize="14sp"
+        android:layout_below="@+id/meg_container"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="3dp"/>
+</RelativeLayout>
