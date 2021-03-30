@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import com.roshan.hotelmanegment.Common.CommonFunction;
 import com.roshan.hotelmanegment.Model.Chat;
 import com.roshan.hotelmanegment.Model.User;
 import com.roshan.hotelmanegment.R;
+import com.roshan.hotelmanegment.SharedPreference.Preference;
 import com.roshan.hotelmanegment.Utils.Util;
 
 import java.util.ArrayList;
@@ -45,6 +48,8 @@ public class MessagingActivity extends AppCompatActivity implements View.OnClick
     private List<Chat> chatList = new ArrayList<>();
     private RecyclerView readChatRecyclerview;
     private ValueEventListener seenListener;
+    private ImageButton backButton;
+    private MessageAdapter messageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +57,16 @@ public class MessagingActivity extends AppCompatActivity implements View.OnClick
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         setContentView(R.layout.activity_messaging);
         bindID();
+        Preference.init(this);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         receiverID = getIntent().getStringExtra("userID");
         sendMessage.setOnClickListener(this);
+        backButton.setOnClickListener(this);
         getChatMessage();
         seenMessage(receiverID);
     }
 
-    private void seenMessage(String receiverID) {
+    private void seenMessage(final String receiverID) {
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         seenListener = reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -71,7 +78,7 @@ public class MessagingActivity extends AppCompatActivity implements View.OnClick
                                 chat.getSender().equals(receiverID)) {
                             HashMap<String, Object> hashMap = new HashMap<>();
                             hashMap.put("isseen", true);
-                            snapshot.getRef().updateChildren(hashMap);
+                            dataSnapshot.getRef().updateChildren(hashMap);
                         }
                     }
                 } else {
@@ -128,8 +135,11 @@ public class MessagingActivity extends AppCompatActivity implements View.OnClick
                                         chat.getSender().equals(firebaseUser.getUid())) {
                             chatList.add(chat);
                         }
+
+                        setChatInRV();
+                        Log.e(TAG,"List: "+chat);
                     }
-                    setChatInRV();
+
                 }
             }
 
@@ -146,7 +156,7 @@ public class MessagingActivity extends AppCompatActivity implements View.OnClick
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setStackFromEnd(true);
         readChatRecyclerview.setLayoutManager(layoutManager);
-        MessageAdapter messageAdapter = new MessageAdapter(this, chatList);
+        messageAdapter = new MessageAdapter(this, chatList);
         readChatRecyclerview.setAdapter(messageAdapter);
     }
 
@@ -155,6 +165,7 @@ public class MessagingActivity extends AppCompatActivity implements View.OnClick
         sendMessage = findViewById(R.id.rl_send);
         receiverName = findViewById(R.id.current_username);
         readChatRecyclerview = findViewById(R.id.rv_messages);
+        backButton = findViewById(R.id.ib_back_arrow);
     }
 
     @Override
@@ -162,6 +173,10 @@ public class MessagingActivity extends AppCompatActivity implements View.OnClick
         switch (view.getId()) {
             case R.id.rl_send:
                 sendMsg(view);
+                break;
+
+            case R.id.ib_back_arrow:
+                finish();
                 break;
         }
     }
@@ -173,17 +188,31 @@ public class MessagingActivity extends AppCompatActivity implements View.OnClick
         if (TextUtils.isEmpty(myMessage)) {
             CommonFunction.showToastMessage(MessagingActivity.this, "Please enter a message");
         } else {
+            Preference.setIsMessageSend(true);
             DatabaseReference myReference = FirebaseDatabase.getInstance().getReference();
             HashMap<String, Object> hashMap = new HashMap<>();
 
             hashMap.put("sender", firebaseUser.getUid());
             hashMap.put("receiver", receiverID);
-            hashMap.put("message", message);
+            hashMap.put("message", myMessage);
             hashMap.put("time", Util.getCurrentTime());
             hashMap.put("isseen", false);
 
             myReference.child("Chats").push().setValue(hashMap);
         }
+        message.getText().clear();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                readMessage();
+            }
+        }, 1000);
     }
 
     @Override

@@ -23,6 +23,16 @@
             android:layout_centerVertical="true"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"/>
+
+        <ImageButton
+            android:id="@+id/ib_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:padding="10dp"/>
     </RelativeLayout>
 
     <RelativeLayout

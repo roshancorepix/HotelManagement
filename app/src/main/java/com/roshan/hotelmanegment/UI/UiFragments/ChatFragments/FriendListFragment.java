@@ -61,6 +61,7 @@ public class FriendListFragment extends Fragment implements ItemClickListener {
         ValueEventListener listener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userList.clear();
                 if (snapshot != null) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         User user = dataSnapshot.getValue(User.class);

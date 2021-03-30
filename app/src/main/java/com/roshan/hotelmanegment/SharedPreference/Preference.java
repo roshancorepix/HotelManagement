@@ -8,6 +8,7 @@ public class Preference {
     private static SharedPreferences preferences;
     private static final String PREF_NAME = "LoginPreference";
     private static final String IS_LOGIN = "isLogin";
+    private static final String IS_MESSAGE_SEND = "isMessageSend";
 
     public Preference() {
     }
@@ -26,5 +27,15 @@ public class Preference {
 
     public static Boolean getUserLogin(){
         return preferences.getBoolean(IS_LOGIN, false);
+    }
+
+    public static void setIsMessageSend(Boolean isMessageSend){
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(IS_MESSAGE_SEND, isMessageSend);
+        editor.commit();
+    }
+
+    public static Boolean getIsMessageSend(){
+        return preferences.getBoolean(IS_MESSAGE_SEND, false);
     }
 }

@@ -1,5 +1,6 @@
 package com.roshan.hotelmanegment.UI.UiFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,15 +9,18 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.google.android.material.tabs.TabLayout;
 import com.roshan.hotelmanegment.Adapters.ChatTabAdapter;
 import com.roshan.hotelmanegment.R;
+import com.roshan.hotelmanegment.UI.SearchUserActivity;
 
 public class UserChatFragment extends Fragment {
 
     private ViewPager chatViewPager;
     private TabLayout chatTabLayout;
+    private ImageButton searchButton;
 
     public UserChatFragment() {
         // Required empty public constructor
@@ -29,6 +33,7 @@ public class UserChatFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_chat, container, false);
         chatTabLayout = view.findViewById(R.id.chat_tab_layout);
         chatViewPager = view.findViewById(R.id.chat_view_pager);
+        searchButton = view.findViewById(R.id.ib_search);
 
         chatTabLayout.addTab(chatTabLayout.newTab().setText("Chats"));
         chatTabLayout.addTab(chatTabLayout.newTab().setText("Friends"));
@@ -55,6 +60,9 @@ public class UserChatFragment extends Fragment {
 
             }
         });
+
+        searchButton.setOnClickListener(v -> startActivity(new Intent(getActivity(),
+                SearchUserActivity.class)));
         return view;
     }
 }
