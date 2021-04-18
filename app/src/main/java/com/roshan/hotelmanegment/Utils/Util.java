@@ -18,6 +18,8 @@ public class Util {
 
     public static final int MESSAGE_TYPE_LEFT = 0;
     public static final int MESSAGE_TYPE_RIGHT = 1;
+    public static final String FCM_BASE_URL = "https://fcm.googleapis.com/";
+    public static final int RESPONSE_OK = 200;
 
     public static String getCurrentTime(){
         Calendar now = Calendar.getInstance();

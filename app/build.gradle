@@ -52,6 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-messaging'
 
     // facebook sdk
     implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
@@ -61,4 +62,11 @@ dependencies {
 
     // Circle Imageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
+    // Arc layout
+    implementation 'com.github.florent37:arclayout:1.0.3'
 }

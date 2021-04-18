@@ -3,21 +3,325 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     android:layout_marginBottom="50dp"
     tools:context=".UI.UiFragments.UserProfileFragment">
 
+    <RelativeLayout
+        android:id="@+id/profile_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="15dp">
 
-    <TextView
-        android:id="@+id/btn_logout"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/jost_regular"
+            android:text="My Profile"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/profile_toolbar"
+        android:background="@color/greyLine" />
+
+
+    <RelativeLayout
+        android:id="@+id/main_user_profile_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logout"
-        android:textSize="18sp"
-        android:padding="10dp"
-        android:fontFamily="@font/jost_regular"
-        android:textColor="@color/colorAccent"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@id/v_toolbar"
+        android:layout_marginEnd="5dp"
+        android:padding="15dp">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_chat_user" />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/user_profile_image"
+            android:ellipsize="end"
+            android:fontFamily="@font/jost_regular"
+            android:text="Roshan Rabadiya"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/user_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/username"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/user_profile_image"
+            android:ellipsize="end"
+            android:fontFamily="@font/jost_light"
+            android:text="roshanrabadiya812@gmail.com"
+            android:textColor="@color/greyFont"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/user_code_country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_email"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="3dp"
+            android:layout_toEndOf="@id/user_profile_image"
+            android:ellipsize="end"
+            android:fontFamily="@font/jost_light"
+            android:text="+91 "
+            android:textColor="@color/greyFont"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/user_mobile_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_email"
+            android:layout_marginTop="3dp"
+            android:layout_toEndOf="@id/user_code_country"
+            android:ellipsize="end"
+            android:fontFamily="@font/jost_light"
+            android:text="8956788944"
+            android:textColor="@color/greyFont"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/btn_edit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_mobile_no"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@id/user_profile_image"
+            android:fontFamily="@font/jost_regular"
+            android:padding="10dp"
+            android:text="EDIT PROFILE"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent" />
+
+    </RelativeLayout>
+
+
+    <View
+        android:id="@+id/view_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_below="@id/main_user_profile_layout"
+        android:background="@color/greyLine" />
+
+
+    <LinearLayout
+        android:id="@+id/first_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_profile"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/my_trips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <ImageButton
+                android:id="@+id/img_trip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_briefcase" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Trips"
+                android:layout_toEndOf="@id/img_trip"
+                android:layout_marginStart="30dp"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:fontFamily="@font/jost_regular"
+                android:textColor="@color/colorPrimaryDark"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/my_short_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <ImageButton
+                android:id="@+id/img_short_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_heart" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Shortlistes"
+                android:layout_toEndOf="@id/img_short_list"
+                android:layout_marginStart="30dp"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:fontFamily="@font/jost_regular"
+                android:textColor="@color/colorPrimaryDark"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/save_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <ImageButton
+                android:id="@+id/img_save_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_card" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Saved Cards"
+                android:layout_toEndOf="@id/img_save_card"
+                android:layout_marginStart="30dp"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:fontFamily="@font/jost_regular"
+                android:textColor="@color/colorPrimaryDark"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view_first_opt"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_below="@id/first_menu"
+        android:background="@color/greyLine" />
+
+    <LinearLayout
+        android:id="@+id/second_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view_first_opt"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/rate_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <ImageButton
+                android:id="@+id/img_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_star_rating" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rate App"
+                android:layout_toEndOf="@id/img_rate"
+                android:layout_marginStart="30dp"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:fontFamily="@font/jost_regular"
+                android:textColor="@color/colorPrimaryDark"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/my_share_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <ImageButton
+                android:id="@+id/img_share_app"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_share" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share App"
+                android:layout_toEndOf="@id/img_share_app"
+                android:layout_marginStart="30dp"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:fontFamily="@font/jost_regular"
+                android:textColor="@color/colorPrimaryDark"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btn_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <ImageButton
+                android:id="@+id/img_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_logout" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:layout_toEndOf="@id/img_logout"
+                android:layout_marginStart="30dp"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:fontFamily="@font/jost_regular"
+                android:textColor="@color/colorPrimaryDark"/>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.0"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:textSize="18sp"
+            android:fontFamily="@font/jost_regular"
+            android:textColor="@color/colorAccent"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

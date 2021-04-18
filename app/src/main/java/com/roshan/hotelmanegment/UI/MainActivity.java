@@ -1,13 +1,11 @@
 package com.roshan.hotelmanegment.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Bundle;
-
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 import com.roshan.hotelmanegment.R;
+import com.roshan.hotelmanegment.UI.UiFragments.HolidaysFragment;
 import com.roshan.hotelmanegment.UI.UiFragments.HomeFragment;
 import com.roshan.hotelmanegment.UI.UiFragments.UserChatFragment;
 import com.roshan.hotelmanegment.UI.UiFragments.UserProfileFragment;
@@ -48,9 +46,20 @@ public class MainActivity extends AppCompatActivity implements ChipNavigationBar
                 openChatFragment();
                 break;
 
+            case R.id.holidays:
+                openHolidayFragment();
+                break;
             default:
                 break;
         }
+    }
+
+    private void openHolidayFragment() {
+        HolidaysFragment holidaysFragment = new HolidaysFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction
+                .replace(R.id.fragment_container, holidaysFragment, "HolidayFragmentTag")
+                .commit();
     }
 
     private void openHomeFragment() {

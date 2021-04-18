@@ -1,8 +1,9 @@
 package com.roshan.hotelmanegment.UI.UiFragments;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.text.TextUtils;
@@ -32,8 +33,11 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.roshan.hotelmanegment.Common.CommonFunction;
 import com.roshan.hotelmanegment.Model.User;
 import com.roshan.hotelmanegment.R;
@@ -189,6 +193,7 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         loginProgressbar.setVisibility(View.GONE);
+                        getCurrentUserID();
                         openHomeActivity();
                     } else {
                         loginProgressbar.setVisibility(View.GONE);
@@ -199,6 +204,32 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
                     loginProgressbar.setVisibility(View.GONE);
                     CommonFunction.showToastMessage(getActivity(), e.getLocalizedMessage());
                 });
+    }
+
+    private void getCurrentUserID() {
+        String firebaseUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("app_user");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.e(TAG,"UserDetails: "+snapshot.getValue());
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    User user = dataSnapshot.getValue(User.class);
+                    if (user.getUserID().equals(firebaseUser)) {
+                        Log.e(TAG, "Username: " + user.getUserName());
+                        Preference.setUserName(user.getUserName());
+                        Preference.setUserEmail(user.getEmailID());
+                        Preference.setUserMobileNo(user.getMobileNumber());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void logInWithFacebook() {
@@ -260,7 +291,9 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
             if (account != null) {
                 String username = account.getDisplayName();
                 String email = account.getEmail();
-                Uri photoUrl = account.getPhotoUrl();
+                Preference.setUserName(username);
+                Preference.setUserEmail(email);
+                //Uri photoUrl = account.getPhotoUrl();
                 AuthCredential authCredential = GoogleAuthProvider
                         .getCredential(account.getIdToken(), null);
 
@@ -273,11 +306,13 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
                                 openHomeActivity();
                                 getActivity().finish();
                             }else {
-                                CommonFunction.showToastMessage(getActivity(), "Login Failed: "+task.getException()
+                                CommonFunction.showToastMessage(getActivity(),
+                                        "Login Failed: "+task.getException()
                                 .getMessage());
                             }
                         })
-                        .addOnFailureListener(e -> CommonFunction.showToastMessage(getActivity(), e.getLocalizedMessage()));
+                        .addOnFailureListener(e -> CommonFunction.showToastMessage(getActivity(),
+                                e.getLocalizedMessage()));
 
             }
         } catch (ApiException e) {
@@ -296,8 +331,6 @@ public class LogInFragment extends Fragment implements View.OnClickListener {
                Log.e(TAG, "Error: "+task.getException().getMessage());
            }
         })
-        .addOnFailureListener(e -> {
-            Log.e(TAG, "Error: "+e.getMessage());
-        });
+        .addOnFailureListener(e -> Log.e(TAG, "Error: "+e.getMessage()));
     }
 }

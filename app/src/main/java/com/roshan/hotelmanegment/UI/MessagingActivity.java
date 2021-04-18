@@ -23,11 +23,18 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.roshan.hotelmanegment.Adapters.MessageAdapter;
 import com.roshan.hotelmanegment.Common.CommonFunction;
 import com.roshan.hotelmanegment.Model.Chat;
 import com.roshan.hotelmanegment.Model.User;
+import com.roshan.hotelmanegment.Notification.ApiService;
+import com.roshan.hotelmanegment.Notification.NotificationData;
+import com.roshan.hotelmanegment.Notification.Response;
+import com.roshan.hotelmanegment.Notification.RetrofitClient;
+import com.roshan.hotelmanegment.Notification.Sender;
+import com.roshan.hotelmanegment.Notification.Token;
 import com.roshan.hotelmanegment.R;
 import com.roshan.hotelmanegment.SharedPreference.Preference;
 import com.roshan.hotelmanegment.Utils.Util;
@@ -35,6 +42,9 @@ import com.roshan.hotelmanegment.Utils.Util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class MessagingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,6 +60,8 @@ public class MessagingActivity extends AppCompatActivity implements View.OnClick
     private ValueEventListener seenListener;
     private ImageButton backButton;
     private MessageAdapter messageAdapter;
+    private ApiService apiService;
+    private boolean notify = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +72,7 @@ public class MessagingActivity extends AppCompatActivity implements View.OnClick
         Preference.init(this);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         receiverID = getIntent().getStringExtra("userID");
+        apiService = RetrofitClient.getClient(Util.FCM_BASE_URL).create(ApiService.class);
         sendMessage.setOnClickListener(this);
         backButton.setOnClickListener(this);
         getChatMessage();
@@ -172,6 +185,7 @@ public class MessagingActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_send:
+                notify = true;
                 sendMsg(view);
                 break;
 
@@ -201,6 +215,64 @@ public class MessagingActivity extends AppCompatActivity implements View.OnClick
             myReference.child("Chats").push().setValue(hashMap);
         }
         message.getText().clear();
+
+        final String msg = myMessage;
+
+        reference = FirebaseDatabase.getInstance()
+                .getReference("app_user")
+                .child(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if (notify) {
+                    sendNotification(receiverID, user.getUserName(), msg);
+                }
+                notify = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void sendNotification(String receiverID, String userName, String msg) {
+        DatabaseReference tokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = tokens.orderByKey().equalTo(receiverID);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Token token = dataSnapshot.getValue(Token.class);
+                    NotificationData data = new NotificationData(firebaseUser.getUid(),
+                            userName, msg, R.mipmap.ic_launcher, receiverID);
+
+                    Sender sender = new Sender(data, token.getToken());
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<Response>() {
+                                @Override
+                                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                    if (response.code() == Util.RESPONSE_OK && response.body().success != 1){
+                                        Toast.makeText(MessagingActivity.this, "Failed!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<Response> call, Throwable t) {
+                                    Log.e(TAG, t.getMessage());
+                                }
+                            });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, error.getMessage());
+            }
+        });
     }
 
     @Override

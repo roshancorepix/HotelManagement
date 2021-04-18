@@ -20,16 +20,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.roshan.hotelmanegment.Adapters.RecentChatListAdapter;
 import com.roshan.hotelmanegment.Interface.ItemClickListener;
 import com.roshan.hotelmanegment.Model.Chat;
 import com.roshan.hotelmanegment.Model.User;
+import com.roshan.hotelmanegment.Notification.Token;
 import com.roshan.hotelmanegment.R;
 import com.roshan.hotelmanegment.SharedPreference.Preference;
 import com.roshan.hotelmanegment.UI.MessagingActivity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 
 public class ChatListFragment extends Fragment implements ItemClickListener {
 
@@ -41,6 +45,7 @@ public class ChatListFragment extends Fragment implements ItemClickListener {
     DatabaseReference reference;
     private List<String> userList;
     int pos = 0;
+
     public ChatListFragment() {
         // Required empty public constructor
     }
@@ -52,7 +57,7 @@ public class ChatListFragment extends Fragment implements ItemClickListener {
         // Inflate the layout for this fragment
         recentChatListRv = view.findViewById(R.id.rv_recent_chatList);
 
-        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         Preference.init(getActivity());
 
         userList = new ArrayList<>();
@@ -61,11 +66,12 @@ public class ChatListFragment extends Fragment implements ItemClickListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Chat chat = snapshot.getValue(Chat.class);
-                    if (chat.getSender().equals(firebaseUser.getUid())){
+                    if (chat.getSender().equals(firebaseUser.getUid())) {
                         userList.add(chat.getReceiver());
-                    }if (chat.getReceiver().equals(firebaseUser.getUid())){
+                    }
+                    if (chat.getReceiver().equals(firebaseUser.getUid())) {
                         userList.add(chat.getSender());
                     }
                 }
@@ -77,27 +83,29 @@ public class ChatListFragment extends Fragment implements ItemClickListener {
 
             }
         });
+        updateTokens(FirebaseInstanceId.getInstance().getToken());
         return view;
     }
 
     private void readChats() {
-        reference=FirebaseDatabase.getInstance().getReference("app_user");
+        reference = FirebaseDatabase.getInstance().getReference("app_user");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mUsersList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     User user = dataSnapshot.getValue(User.class);
 
-                    for (String id : userList){
-                        if (user.getUserID().equals(id)){
-                            if (mUsersList.size() != 0){
-                                for (User user1 : mUsersList){
-                                    if (!user.getUserID().equals(user1.getUserID())){
+                    for (String id : userList) {
+                        if (user.getUserID().equals(id)) {
+                            if (mUsersList.size() != 0) {
+                                for (User user1 : mUsersList) {
+                                    if (!user.getUserID().equals(user1.getUserID())) {
+                                        Log.e(TAG, "user and user1 not same");
                                         mUsersList.add(user);
                                     }
                                 }
-                            }else {
+                            } else {
                                 mUsersList.add(user);
                             }
                         }
@@ -113,13 +121,20 @@ public class ChatListFragment extends Fragment implements ItemClickListener {
         });
     }
 
-    private void setRecentChatDataInRv(){
+    private void setRecentChatDataInRv() {
         recentChatListRv.setHasFixedSize(true);
-        recentChatListRv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        recentChatListRv.setLayoutManager(new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.VERTICAL, false));
         adapter = new RecentChatListAdapter(getContext(), mUsersList);
         adapter.setOnItemClickListener(this);
         recentChatListRv.setAdapter(adapter);
 
+    }
+
+    private void updateTokens(String token) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1 = new Token(token);
+        ref.child(firebaseUser.getUid()).setValue(token1);
     }
 
     @Override
@@ -134,7 +149,7 @@ public class ChatListFragment extends Fragment implements ItemClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        if (adapter != null && Preference.getIsMessageSend()){
+        if (adapter != null && Preference.getIsMessageSend()) {
             adapter.notifyItemMoved(pos, 0);
         }
     }

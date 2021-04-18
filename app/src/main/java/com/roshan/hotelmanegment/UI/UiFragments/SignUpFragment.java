@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.roshan.hotelmanegment.Common.CommonFunction;
 import com.roshan.hotelmanegment.Model.User;
 import com.roshan.hotelmanegment.R;
+import com.roshan.hotelmanegment.SharedPreference.Preference;
 import com.roshan.hotelmanegment.UI.MainActivity;
 import com.roshan.hotelmanegment.Utils.Util;
 
@@ -60,6 +61,9 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
         FirebaseApp.initializeApp(getActivity());
         mAuth = FirebaseAuth.getInstance();
         reference= FirebaseDatabase.getInstance().getReference("app_user");
+
+        //init SharedPreference
+        Preference.init(getActivity());
 
         // click
         passwordToggle.setOnClickListener(this);
@@ -165,6 +169,7 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
                             CommonFunction.showToastMessage(getActivity(), "User signIn Success");
                             String uID = mAuth.getCurrentUser().getUid();
                             storeUserDetail(uID, username, email, mobile);
+                            storeUserDetailInSP(username, email, mobile);
                             startActivity(new Intent(getActivity(), MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         }
                     }
@@ -175,6 +180,12 @@ public class SignUpFragment extends Fragment implements View.OnClickListener {
                         Log.e(TAG,"Error: "+e.getLocalizedMessage());
                     }
                 });
+    }
+
+    private void storeUserDetailInSP(String username, String email, String mobile) {
+        Preference.setUserName(username);
+        Preference.setUserEmail(email);
+        Preference.setUserMobileNo(mobile);
     }
 
     private void storeUserDetail(String uID, String username, String email, String mobile) {

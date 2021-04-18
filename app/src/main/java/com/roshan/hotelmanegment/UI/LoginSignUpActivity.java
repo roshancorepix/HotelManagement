@@ -40,7 +40,7 @@ public class LoginSignUpActivity extends AppCompatActivity {
             openHomePage();
         }
 
-        skipButton.setOnClickListener(v -> openHomePage());
+        //skipButton.setOnClickListener(v -> openHomePage());
 
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.log_in)));
         tabLayout.addTab(tabLayout.newTab().setText(getResources().getString(R.string.sign_up)));
